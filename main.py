@@ -25,7 +25,7 @@ def generate_response():#генерування відповіді
     api_key = KEY
     temperature = ex.ui.doubleSpinBox.value()
     res = None
-    if chat_model != 'text-davinci-003':
+    if chat_model != 'text-davinci-003' or 'gpt-4' or 'gpt-4-32k':
         ex.ui.plainTextEdit.appendPlainText('Користувач: '+ str(ex.ui.lineEdit.text()))
         response = openai.ChatCompletion.create(
             model=chat_model,
@@ -48,37 +48,8 @@ def generate_response():#генерування відповіді
         
         else:
             ex.ui.plainTextEdit.appendPlainText('помилка, спробуйте ще раз')
-    if chat_model == 'text-davinci-003':
-        generate_responsedt003()
-def generate_responsedt003():  
-    prompt=ex.ui.lineEdit.text()
-    messages = []
-
-    # Додаємо попередні запитання і відповіді до контексту
-    for i in range(0, len(conversation), 2):
-        messages.append({"role": "system", "content": f"You: {conversation[i]}"})
-        messages.append({"role": "user", "content": f"chat gpt: {conversation[i + 1]}"})
-    messages.append({"role": "system", "content": "You:"})
-    messages.append({"role": "user", "content": prompt})
-    ex.ui.plainTextEdit.appendPlainText('Користувач: '+ str(ex.ui.lineEdit.text()))
-    api_key = KEY
-    temperature = ex.ui.doubleSpinBox.value()
-    res = None
-    response = openai.Completion.create(
-        engine='text-davinci-003',
-        prompt="\n".join(f"{m['role']}: {m['content']}" for m in messages),
-        max_tokens=max_tokens,
-        temperature=temperature    )      
-    if response and response.choices:
-        ex.ui.plainTextEdit.appendPlainText('ChatGPT: '+ str(response.choices[0].text.strip()))
-        current_response = response.choices[0].text.strip()
-        # Зберігаємо поточне запитання і відповідь
-        conversation.append(prompt)
-        conversation.append(current_response)
 
         reset()
-    else:
-            ex.ui.plainTextEdit.appendPlainText('помилка, спробуйте ще раз')
 def reset():
     ex.ui.lineEdit.setText(None)
 def resetchat():
@@ -92,7 +63,7 @@ def td003():
 def gpt4():
     global chat_model
     global max_tokens
-    chat_model = 'gpt-4'
+    chat_model = ''
     max_tokens=8000
 def gpt432k():
     global chat_model
