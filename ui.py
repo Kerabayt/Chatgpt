@@ -85,7 +85,7 @@ class Ui_MainWindow(object):
         font.setWeight(75)
         self.gpt4.setFont(font)
         self.gpt4.setCheckable(True)
-        self.gpt4.setChecked(True)
+        self.gpt4.setChecked(False)
         self.gpt4.setAutoRepeatDelay(300)
         self.gpt4.setObjectName("gpt4")
         self.gridLayout.addWidget(self.gpt4, 0, 0, 1, 1)
