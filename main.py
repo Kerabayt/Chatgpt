@@ -5,9 +5,8 @@ from PyQt5.QtWidgets import QWidget
 from ui import Ui_MainWindow
 import openai
 chat_model='gpt-3.5-turbo'
-max_tokens=3000
 temperature=0.7
-KEY = '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'
+KEY = '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'
 openai.api_key = KEY
 print(chat_model)
 # Зберігання попередніх запитань і відповідей
@@ -33,7 +32,6 @@ def generate_response():#генерування відповіді
                 {"role": "system", "content": "You are a helpful assistant."},
                 {"role": "user", "content": "\n".join(f"{m['role']}: {m['content']}" for m in messages)}
             ],
-            max_tokens=max_tokens,
             temperature=temperature
         )
 
@@ -59,27 +57,22 @@ def td003():
     global chat_model
     global max_tokens
     chat_model = 'text-davinci-003'
-    max_tokens=4000
 def gpt4():
     global chat_model
     global max_tokens
     chat_model = ''
-    max_tokens=8000
 def gpt432k():
     global chat_model
     global max_tokens
     chat_model = 'gpt-4-32k'
-    max_tokens=32500
 def gpt35t():
     global chat_model
     global max_tokens
-    max_tokens=3000
     chat_model = 'gpt-3.5-turbo'
 def gpt35t16k():
     global chat_model
     global max_tokens
     chat_model = 'gpt-3.5-turbo-16k'
-    max_tokens=15000
 def save_file(window):
     # Відкриваємо діалог вибору папки та файлу
     file_path, _ = QFileDialog.getSaveFileName(window, 'Зберегти файл', '', 'Text Files (*.txt)')
